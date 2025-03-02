@@ -4,9 +4,18 @@ import string
 import math
 import re
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from starlette.requests import Request
 
 app = FastAPI()
+# Set up templates directory
+templates = Jinja2Templates(directory="templates")
 
+@app.get("/", response_class=HTMLResponse)
+async def serve_homepage(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the Password Strength Checker API!"}
