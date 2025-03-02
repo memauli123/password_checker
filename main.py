@@ -7,6 +7,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to the Password Strength Checker API!"}
+
 # Allow frontend to access backend
 app.add_middleware(
     CORSMiddleware,
